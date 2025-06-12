@@ -53,39 +53,38 @@ class ProductRepositoryImpl : ProductRepository {
         productId: String,
         callback: (Boolean, String, ProductModel?) -> Unit
     ) {
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    val product = snapshot.getValue(ProductModel::class.java)
-                    if (product != null){
-                        callback(true,"product fetched",product)
-                    }
-                }
-
-            }
-
-
-    override fun getAllProduct(callback: (Boolean, String, List<ProductModel?>) -> Unit) {
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()){
-                    var allProducts = mutableListOf<ProductModel>()
-                    for (eachProduct in snapshot.children){
-                        var products = eachProduct.getValue(ProductModel::class.java)
-                        if (products !=null){
-                            allProducts.add(products)
+                if (snapshot.exists()) {
+                    val product = snapshot.getValue(ProductModel::class.java)
+                    if (product != null) {
+                        callback(true, "product fetched", product)
+                    }
+                }
+
+            }
+
+
+            override fun getAllProduct(callback: (Boolean, String, List<ProductModel?>) -> Unit) {
+                ref.addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot.exists()) {
+                            var allProducts = mutableListOf<ProductModel>()
+                            for (eachProduct in snapshot.children) {
+                                var products = eachProduct.getValue(ProductModel::class.java)
+                                if (products != null) {
+                                    allProducts.add(products)
+                                }
+                            }
+                            callback(true, "product fetched", allProducts)
                         }
                     }
-                    callback(true,"product fetched", allProducts)
-                }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        callback(false, error.message, emptyList())
+                    }
+                })
             }
 
-            override fun onCancelled(error: DatabaseError) {
-                callback(false,error.message,emptyList())
-            }
-        })
-    }
-
-        }
 
 
