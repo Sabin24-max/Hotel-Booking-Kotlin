@@ -13,6 +13,110 @@
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="31">
         <activity
+            android:name=".ForgetPasswordActivity"
+            android:exported="true"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".DashboardActivity"
+            android:exported="true"
+            android:label="@string/title_activity_dashboard"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AddproductActivity"
+            android:exported="true"
+            android:label="@string/title_activity_addproduct"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_registration"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.ui.theme.ForgetPasswordActivity"
+            android:exported="true"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.ForgetPasswordActivity"
+            android:exported="false"
+            android:label="@string/title_activity_forget_password"
+            android:theme="@style/Theme.HotelBooking" />
+        <activity
+            android:name=".NavTopbar"
+            android:exported="true"
+            android:label="@string/title_activity_nav_topbar"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".logingActivity"
+            android:exported="true"
+            android:label="@string/title_activity_loging"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Navbar"
+            android:exported="true"
+            android:label="@string/title_activity_navbar"
+            android:theme="@style/Theme.HotelBooking">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:label="@string/title_activity_splash"

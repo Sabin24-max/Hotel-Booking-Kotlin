@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Hotel Booking</string>
     <string name="title_activity_splash">SplashActivity</string>
+    <string name="title_activity_navbar">Navbar</string>
+    <string name="title_activity_loging">logingActivity</string>
+    <string name="title_activity_nav_topbar">NavTopbar</string>
+    <string name="title_activity_forget_password">ForgetPasswordActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_addproduct">AddproductActivity</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
 </resources>

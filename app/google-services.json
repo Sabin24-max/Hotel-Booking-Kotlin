@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "353202326636",
+    "firebase_url": "https://kotlinneeded-default-rtdb.firebaseio.com",
+    "project_id": "kotlinneeded",
+    "storage_bucket": "kotlinneeded.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353202326636:android:0b4a59a8ca28204c485c49",
+        "android_client_info": {
+          "package_name": "com.example.hotelbooking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC986KnDEVTY2uGndhzY2HUzggcfzW7vuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
