@@ -1,5 +1,7 @@
 package com.example.hotelbooking.repository
 
+import android.content.Context
+import android.net.Uri
 import com.example.hotelbooking.model.ProductModel
 
 
@@ -9,6 +11,9 @@ interface ProductRepository {
     success : true,
     message : "product added successfully"
     */
+    fun uploadImage(context: Context, imageUri: Uri, callback: (String?) -> Unit)
+
+    fun getFileNameFromUri(context: Context,uri: Uri): String?
     fun addProduct(model: ProductModel,
                    callback: (Boolean, String)-> Unit)
 
