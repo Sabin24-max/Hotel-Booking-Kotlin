@@ -1,5 +1,5 @@
-package com.example.hotelbooking.view.ui
-
+// SplashActivity.kt
+package com.example.hotelbooking.component
 
 import android.app.Activity
 import android.content.Context
@@ -10,14 +10,8 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -28,56 +22,47 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hotelbooking.R
-
+import com.example.hotelbooking.view.admin.AdminDashboardActivity
+import com.example.hotelbooking.view.LoginActivity
+import com.example.hotelbooking.view.UserDashboardActivity
 import kotlinx.coroutines.delay
 
 class SplashActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent {
-            SplashBody()
-        }
+        setContent { SplashBody() }
     }
 }
 
 @Composable
 fun SplashBody() {
-
     val context = LocalContext.current
     val activity = context as Activity
-
-    val sharedPreferences = context.getSharedPreferences("User", Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-
-    val localEmail : String = sharedPreferences.getString("email","").toString()
-
+    val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+    val email = sharedPreferences.getString("email", "") ?: ""
 
     LaunchedEffect(Unit) {
         delay(3000)
-        if(localEmail.isEmpty()){
-            val intent = Intent(context, LoginActivity::class.java)
-            context.startActivity(intent)
-            activity.finish()
-        }else{
-            val intent = Intent(context, DashboardActivity::class.java)
-            context.startActivity(intent)
-            activity.finish()
+        val intent = when {
+            email.isEmpty() -> Intent(context, LoginActivity::class.java)
+            email == "admin@gmail.com" -> Intent(context, AdminDashboardActivity::class.java)
+            else -> Intent(context, UserDashboardActivity::class.java)
         }
-
+        context.startActivity(intent)
+        activity.finish()
     }
 
     Scaffold { padding ->
-        Column(modifier = Modifier
-            .padding(padding).background(color = Color.White)
-            .fillMaxSize(),
+        Column(
+            modifier = Modifier
+                .padding(padding)
+                .background(Color.White)
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painterResource(R.drawable.bookinglogo),
-                contentDescription = null
-            )
+            Image(painter = painterResource(R.drawable.bookinglogo), contentDescription = null)
             Spacer(modifier = Modifier.height(10.dp))
             CircularProgressIndicator()
         }
