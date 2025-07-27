@@ -4,5 +4,6 @@ data class UserModel(
     var userId: String = "",
     var email: String = "",
     var fullName: String = "",
-    var phoneNumber: String = ""
+    var phoneNumber: String = "",
+    val selectedRole: String =""
 )
