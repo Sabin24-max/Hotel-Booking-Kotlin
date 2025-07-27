@@ -1,4 +1,4 @@
-package Utills
+package com.example.hotelbooking.Utills
 
 import android.Manifest
 import android.app.Activity

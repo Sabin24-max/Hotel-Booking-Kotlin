@@ -1,4 +1,4 @@
-package com.example.hotelbooking
+package com.example.hotelbooking.view.ui
 
 
 import android.app.Activity
@@ -27,7 +27,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.scoopie.R
+import com.example.hotelbooking.R
 
 import kotlinx.coroutines.delay
 

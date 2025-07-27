@@ -1,5 +1,11 @@
 [versions]
 agp = "8.10.0"
+cloudinaryAndroid = "2.1.0"
+coilCompose = "2.2.2"
+firebaseAuthKtxVersion = "22.3.1"
+firebaseDatabaseKtx = "21.0.0"
+firebaseStorageKtxVersion = "20.3.0"
+googleFirebaseStorageKtx = "21.0.2"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
 junit = "4.13.2"
@@ -12,9 +18,23 @@ googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.2.1"
 firebaseDatabase = "21.0.0"
 firebaseAuthKtx = "23.2.1"
+firebaseStorageKtx = "22.0.0"
+picasso = "2.8"
+runtimeLivedata = "1.8.3"
+runtimeLivedataVersion = "1.6.0"
+firebaseAnalytics = "23.0.0"
+firebaseFirestore = "26.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
+androidx-runtime-livedata-v160 = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedataVersion" }
+cloudinary-android = { module = "com.cloudinary:cloudinary-android", version.ref = "cloudinaryAndroid" }
+coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
+firebase-auth-ktx-v2231 = { module = "com.google.firebase:firebase-auth-ktx", version.ref = "firebaseAuthKtxVersion" }
+firebase-database-ktx = { module = "com.google.firebase:firebase-database-ktx", version.ref = "firebaseDatabaseKtx" }
+firebase-storage-ktx-v2030 = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebaseStorageKtxVersion" }
+firebase-storage-ktx-v2102 = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "googleFirebaseStorageKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -31,6 +51,10 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 firebase-database = { group = "com.google.firebase", name = "firebase-database", version.ref = "firebaseDatabase" }
 firebase-auth-ktx = { group = "com.google.firebase", name = "firebase-auth-ktx", version.ref = "firebaseAuthKtx" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
+picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics", version.ref = "firebaseAnalytics" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
