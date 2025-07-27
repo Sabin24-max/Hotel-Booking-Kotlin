@@ -26,7 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.hotelbooking.R
-import com.example.hotelbooking.Utills.ImageUtils
+import com.example.hotelbooking.utils.ImageUtils
 import com.example.hotelbooking.model.ProductModel
 import com.example.hotelbooking.repository.ProductRepositoryImpl
 import com.example.hotelbooking.viewmodel.ProductViewModel

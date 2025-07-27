@@ -20,7 +20,7 @@
 
         <!-- Splash Activity (Launcher) -->
         <activity
-            android:name=".view.ui.SplashActivity"
+            android:name=".component.SplashActivity"
             android:exported="true"
             android:label="@string/title_activity_splash"
             android:theme="@style/Theme.HotelBooking">
@@ -31,10 +31,10 @@
         </activity>
 
         <!-- Other Activities -->
-        <activity android:name=".view.ui.LoginActivity" android:exported="true" />
-        <activity android:name=".view.ui.RegistrationActivity" android:exported="true" />
-        <activity android:name=".view.ui.DashboardActivity" android:exported="true" />
-        <activity android:name=".view.ui.ForgetPasswordActivity" android:exported="true" />
+        <activity android:name=".view.LoginActivity" android:exported="true" />
+        <activity android:name=".view.RegistrationActivity" android:exported="true" />
+        <activity android:name=".view.DashboardActivity" android:exported="true" />
+        <activity android:name=".view.ForgetPasswordActivity" android:exported="true" />
         <activity android:name=".MainActivity" android:exported="true" />
 
     </application>
