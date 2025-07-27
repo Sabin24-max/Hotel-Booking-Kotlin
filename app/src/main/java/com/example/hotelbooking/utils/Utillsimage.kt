@@ -1,4 +1,4 @@
-package com.example.hotelbooking.Utills
+package com.example.hotelbooking.utils
 
 import android.Manifest
 import android.app.Activity
