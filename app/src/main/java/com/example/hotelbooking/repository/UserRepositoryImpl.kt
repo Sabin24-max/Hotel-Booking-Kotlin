@@ -24,7 +24,8 @@ class UserRepositoryImpl : UserRepository {
     override fun register(email: String, password: String, callback: (Boolean, String, String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener {
             if (it.isSuccessful) {
-                callback(true, "Registration successful", auth.currentUser?.uid ?: "")
+                val uid = auth.currentUser?.uid ?: ""
+                callback(true, "Registration successful", uid)
             } else {
                 callback(false, it.exception?.message ?: "Registration failed", "")
             }
