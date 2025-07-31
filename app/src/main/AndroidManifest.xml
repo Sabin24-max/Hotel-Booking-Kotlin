@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hotelbooking">
 
-    <!-- Required Permissions -->
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:allowBackup="true"
-        android:fullBackupContent="false"
-        tools:replace="android:fullBackupContent"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -18,7 +16,7 @@
         android:theme="@style/Theme.HotelBooking"
         tools:targetApi="31">
 
-        <!-- Splash Activity (Launcher) -->
+        <!-- Splash screen: app launcher -->
         <activity
             android:name=".component.SplashActivity"
             android:exported="true"
@@ -30,13 +28,23 @@
             </intent-filter>
         </activity>
 
-        <!-- Other Activities -->
+        <!-- Authentication screens -->
         <activity android:name=".view.LoginActivity" android:exported="true" />
         <activity android:name=".view.RegistrationActivity" android:exported="true" />
-        <activity android:name=".view.DashboardActivity" android:exported="true" />
         <activity android:name=".view.ForgetPasswordActivity" android:exported="true" />
+
+        <!-- Dashboards -->
+        <activity android:name=".view.UserDashboardActivity" android:exported="true" />
+        <activity android:name=".view.admin.AdminDashboardActivity" android:exported="true" />
+
+        <!-- Product management (admin) -->
+        <activity android:name=".view.admin.AddProductActivity" android:exported="true" />
+
+        <!-- Other app navigation -->
+        <activity android:name=".component.NaviigationActivity" android:exported="true" />
+
+        <!-- MainActivity (for possible deep link/entry point) -->
         <activity android:name=".MainActivity" android:exported="true" />
 
     </application>
-
 </manifest>
