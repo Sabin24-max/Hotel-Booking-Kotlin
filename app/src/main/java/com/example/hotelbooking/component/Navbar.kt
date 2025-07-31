@@ -5,36 +5,20 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
-
-
 
 class NaviigationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,52 +33,34 @@ class NaviigationActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavigationBody() {
-
     data class BottomNavItem(val label: String, val icon: ImageVector)
-
     val bottomNavItems = listOf(
         BottomNavItem("Home", Icons.Default.Home),
         BottomNavItem("Search", Icons.Default.Search),
         BottomNavItem("Profile", Icons.Default.Person)
     )
-
     var selectedIndex by remember { mutableIntStateOf(0) }
-
-
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = {
-                    Text("Ecommerce")
-                },
+                title = { Text("Ecommerce") },
                 actions = {
                     IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null
-                        )
+                        Icon(Icons.Default.Search, contentDescription = null)
                     }
                     IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = null
-                        )
+                        Icon(Icons.Default.Settings, contentDescription = null)
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = {}) {
-                        Icon(
-                            imageVector = Icons.Default.KeyboardArrowLeft,
-                            contentDescription = null
-                        )
+                    IconButton(onClick = { /* TODO: handle back here if needed */ }) {
+                        Icon(Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = null)
                     }
-
                 }
             )
         },
-
-                bottomBar = {
+        bottomBar = {
             NavigationBar {
                 bottomNavItems.forEachIndexed { index, item ->
                     NavigationBarItem(
@@ -105,7 +71,7 @@ fun NavigationBody() {
                     )
                 }
             }
-        },
+        }
     ) { innerPadding ->
         Box(
             modifier = Modifier
@@ -134,11 +100,8 @@ fun Home1() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Gray)
-    ) {
-
-    }
+    ) { }
 }
-
 
 @Composable
 fun Home2() {
@@ -146,11 +109,8 @@ fun Home2() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Yellow)
-    ) {
-
-    }
+    ) { }
 }
-
 
 @Composable
 fun Home3() {
@@ -158,6 +118,5 @@ fun Home3() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.Green)
-    ) {
-    }
+    ) { }
 }
