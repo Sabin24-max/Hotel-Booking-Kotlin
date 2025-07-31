@@ -1,9 +1,8 @@
-package com.example.hotelbooking.view.ui
+package com.example.hotelbooking.view.admin
 
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -22,7 +21,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.hotelbooking.R
@@ -32,14 +30,13 @@ import com.example.hotelbooking.repository.ProductRepositoryImpl
 import com.example.hotelbooking.viewmodel.ProductViewModel
 
 class AddProductActivity : ComponentActivity() {
-
     private lateinit var imageUtils: ImageUtils
-    private var selectedImageUri by mutableStateOf<Uri?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        var selectedImageUri by mutableStateOf<Uri?>(null)
         imageUtils = ImageUtils(this, this)
         imageUtils.registerLaunchers { uri ->
             selectedImageUri = uri
@@ -75,7 +72,6 @@ fun AddProductBody(
                 .padding(innerPadding)
         ) {
             item {
-                // Image picker box
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -83,9 +79,7 @@ fun AddProductBody(
                         .clickable(
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }
-                        ) {
-                            onPickImage()
-                        }
+                        ) { onPickImage() }
                         .padding(10.dp)
                 ) {
                     if (selectedImageUri != null) {
@@ -104,8 +98,6 @@ fun AddProductBody(
                         )
                     }
                 }
-
-                // Product Name
                 OutlinedTextField(
                     value = productName,
                     onValueChange = { productName = it },
@@ -116,8 +108,6 @@ fun AddProductBody(
                     placeholder = { Text("Product Name") },
                     label = { Text("Product Name") }
                 )
-
-                // Product Description
                 OutlinedTextField(
                     value = productDescription,
                     onValueChange = { productDescription = it },
@@ -128,8 +118,6 @@ fun AddProductBody(
                     placeholder = { Text("Product Description") },
                     label = { Text("Description") }
                 )
-
-                // Product Price
                 OutlinedTextField(
                     value = productPrice,
                     onValueChange = { productPrice = it },
@@ -141,8 +129,6 @@ fun AddProductBody(
                     placeholder = { Text("Product Price") },
                     label = { Text("Price") }
                 )
-
-                // Submit Button
                 Button(
                     onClick = {
                         if (selectedImageUri != null) {
@@ -160,7 +146,6 @@ fun AddProductBody(
                                         if (success) activity?.finish()
                                     }
                                 } else {
-                                    Log.e("Image Upload", "Failed to upload image")
                                     Toast.makeText(context, "Image upload failed", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -177,13 +162,4 @@ fun AddProductBody(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProductBodyPreview() {
-    AddProductBody(
-        selectedImageUri = null,
-        onPickImage = {}
-    )
 }
