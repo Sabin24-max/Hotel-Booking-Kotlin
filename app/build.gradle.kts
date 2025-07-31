@@ -44,6 +44,7 @@ android {
 }
 
 dependencies {
+    implementation (libs.androidx.material.icons.extended)
     // Core AndroidX
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -73,6 +74,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.androidx.animation.core.lint)
 
     // Testing
     testImplementation(libs.junit)
