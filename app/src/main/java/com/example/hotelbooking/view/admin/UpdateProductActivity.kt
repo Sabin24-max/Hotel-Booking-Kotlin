@@ -1,4 +1,4 @@
-package com.example.hotelbooking.view.ui
+package com.example.hotelbooking.view.admin
 
 import android.app.Activity
 import android.os.Bundle
