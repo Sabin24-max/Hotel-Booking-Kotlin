@@ -1,4 +1,4 @@
-package com.example.hotelbooking.view.ui
+package com.example.hotelbooking.view
 
 import android.app.Activity
 import android.content.Context
@@ -17,6 +17,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.hotelbooking.R
+import com.example.hotelbooking.view.admin.AdminDashboardActivity
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
@@ -54,11 +57,9 @@ fun LoginScreen() {
     val activity = context as Activity
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
-
     val sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
 
-    // Prefill email/password if stored
     LaunchedEffect(Unit) {
         email = sharedPreferences.getString("email", "") ?: ""
         password = sharedPreferences.getString("password", "") ?: ""
@@ -82,7 +83,6 @@ fun LoginScreen() {
                 contentDescription = "Hotel Logo",
                 modifier = Modifier.height(120.dp)
             )
-
             Spacer(modifier = Modifier.height(32.dp))
 
             OutlinedTextField(
@@ -94,7 +94,6 @@ fun LoginScreen() {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 shape = RoundedCornerShape(10.dp)
             )
-
             Spacer(modifier = Modifier.height(16.dp))
 
             OutlinedTextField(
@@ -105,20 +104,15 @@ fun LoginScreen() {
                 leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null) },
                 trailingIcon = {
                     Icon(
-                        painterResource(
-                            if (passwordVisible) R.drawable.visibility_on else R.drawable.visibility_off
-                        ),
+                        imageVector = if (passwordVisible) Icons.Default.Visibility else Icons.Default.VisibilityOff,
                         contentDescription = null,
-                        modifier = Modifier.clickable {
-                            passwordVisible = !passwordVisible
-                        }
+                        modifier = Modifier.clickable { passwordVisible = !passwordVisible }
                     )
                 },
                 visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 shape = RoundedCornerShape(10.dp)
             )
-
             Spacer(modifier = Modifier.height(8.dp))
 
             Row(
@@ -135,11 +129,14 @@ fun LoginScreen() {
                     Text("Remember me")
                 }
 
-                Text("Forgot Password?", modifier = Modifier.clickable {
-                    // TODO: Add password recovery
-                })
+                Text("Forgot Password?",
+                    color = Color.Blue,
+                    modifier = Modifier.clickable {
+                        val intent = Intent(context, ForgetPasswordActivity::class.java)
+                        context.startActivity(intent)
+                    }
+                )
             }
-
             Spacer(modifier = Modifier.height(20.dp))
 
             Button(
@@ -158,10 +155,12 @@ fun LoginScreen() {
                                     editor.putString("password", password)
                                     editor.apply()
                                 }
-
                                 Toast.makeText(context, "Login successful", Toast.LENGTH_SHORT).show()
-
-                                val intent = Intent(context, DashboardActivity::class.java)
+                                val intent = if (email == "admin@gmail.com") {
+                                    Intent(context, AdminDashboardActivity::class.java)
+                                } else {
+                                    Intent(context, UserDashboardActivity::class.java)
+                                }
                                 intent.putExtra("email", email)
                                 context.startActivity(intent)
                                 activity.finish()
@@ -179,9 +178,7 @@ fun LoginScreen() {
             ) {
                 Text("Login")
             }
-
             Spacer(modifier = Modifier.height(16.dp))
-
             Text(
                 text = "Don't have an account? Sign up",
                 color = Color.Blue,
