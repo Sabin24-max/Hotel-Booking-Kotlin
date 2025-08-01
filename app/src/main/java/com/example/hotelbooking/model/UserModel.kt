@@ -5,5 +5,5 @@ data class UserModel(
     var email: String = "",
     var fullName: String = "",
     var phoneNumber: String = "",
-    val selectedRole: String =""
+    var selectedRole: String = ""
 )
