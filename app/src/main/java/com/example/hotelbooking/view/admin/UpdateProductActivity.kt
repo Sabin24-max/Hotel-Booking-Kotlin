@@ -5,14 +5,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.example.hotelbooking.repository.ProductRepositoryImpl
 import com.example.hotelbooking.viewmodel.ProductViewModel
@@ -20,102 +19,100 @@ import com.example.hotelbooking.viewmodel.ProductViewModel
 class UpdateProductActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            UpdateProductBody()
-        }
+        setContent { UpdateProductScreen() }
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UpdateProductBody() {
+fun UpdateProductScreen() {
     val context = LocalContext.current
     val activity = context as? Activity
-    val productId = activity?.intent?.getStringExtra("productId")
+    val productId = activity?.intent?.getStringExtra("productId") ?: ""
+    val viewModel = remember { ProductViewModel(ProductRepositoryImpl()) }
+    val product = viewModel.selectedProduct
 
-    val repo = remember { ProductRepositoryImpl() }
-    val viewModel = remember { ProductViewModel(repo) }
+    var name by remember { mutableStateOf("") }
+    var desc by remember { mutableStateOf("") }
+    var price by remember { mutableStateOf("") }
+    var imageUrl by remember { mutableStateOf("") }
 
-    var pName by remember { mutableStateOf("") }
-    var pPrice by remember { mutableStateOf("") }
-    var pDesc by remember { mutableStateOf("") }
-
-    val product by viewModel.singleProduct.observeAsState()
-
-    // Fetch product from Firebase
+    // Fetch and populate
     LaunchedEffect(productId) {
-        if (!productId.isNullOrEmpty()) {
-            viewModel.getProductById(productId)
-        }
+        if (productId.isNotBlank()) viewModel.loadProduct(productId)
     }
-
-    // Populate input fields with fetched product
     LaunchedEffect(product) {
         product?.let {
-            pName = it.name
-            pPrice = it.price.toString()
-            pDesc = it.description
+            name = it.name
+            desc = it.description
+            price = it.price.toString()
+            imageUrl = it.imageUrl
         }
     }
 
-    Scaffold { innerPadding ->
-        LazyColumn(
-            modifier = Modifier
+    Scaffold(
+        topBar = { TopAppBar(title = { Text("Edit Product") }) }
+    ) { padding ->
+        Column(
+            Modifier
                 .fillMaxSize()
-                .padding(innerPadding)
-                .padding(16.dp)
+                .padding(padding)
+                .padding(18.dp)
         ) {
-            item {
-                OutlinedTextField(
-                    value = pName,
-                    onValueChange = { pName = it },
-                    label = { Text("Product Name") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = pPrice,
-                    onValueChange = { pPrice = it },
-                    label = { Text("Product Price") },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-
-                OutlinedTextField(
-                    value = pDesc,
-                    onValueChange = { pDesc = it },
-                    label = { Text("Product Description") },
-                    minLines = 3,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-
-                Button(
-                    onClick = {
-                        val data = mapOf(
-                            "name" to pName,
-                            "price" to pPrice.toDoubleOrNull(),
-                            "description" to pDesc,
-                            "productId" to productId
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text("Name") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(12.dp))
+            OutlinedTextField(
+                value = desc,
+                onValueChange = { desc = it },
+                label = { Text("Description") },
+                minLines = 2,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(12.dp))
+            OutlinedTextField(
+                value = price,
+                onValueChange = { price = it },
+                label = { Text("Price") },
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(12.dp))
+            OutlinedTextField(
+                value = imageUrl,
+                onValueChange = { imageUrl = it },
+                label = { Text("Image URL") },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(24.dp))
+            Button(
+                onClick = {
+                    val priceDouble = price.toDoubleOrNull()
+                    if (name.isBlank() || priceDouble == null || imageUrl.isBlank()) {
+                        Toast.makeText(context, "Fill all fields", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val updated = product?.copy(
+                            name = name,
+                            price = priceDouble,
+                            description = desc,
+                            imageUrl = imageUrl
                         )
-
-                        if (productId != null && data["price"] != null) {
-                            viewModel.updateProduct(productId, data) { success, message ->
-                                if (success) {
-                                    activity?.finish()
-                                } else {
-                                    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                                }
+                        if (updated != null) {
+                            viewModel.updateProduct(updated) {
+                                activity?.finish()
                             }
                         } else {
-                            Toast.makeText(context, "Invalid input", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Could not update.", Toast.LENGTH_SHORT).show()
                         }
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Text("Update Product")
-                }
+                    }
+                },
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text("Update Hotel")
             }
         }
     }
